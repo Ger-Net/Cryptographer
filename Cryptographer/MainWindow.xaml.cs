@@ -20,14 +20,15 @@ namespace Cryptographer
         private void InitializeCipherSettings()
         {
             _cipherSettingsControls["Caesar"] = new CaesarCipherSettings();
-            //_cipherSettingsControls["Vigenere"] = new VigenereCipherSettings(); // пример для другого шифра
+            _cipherSettingsControls["Vigenere"] = new VigenereCipherSettings(); 
 
             CipherBox.Items.Add("Caesar");
-            //CipherBox.Items.Add("Vigenere");
+            CipherBox.Items.Add("Vigenere");
         }
         private void InitializeCiphers()
         {
             _ciphers["Caesar"] = new CaesarChipher();
+            _ciphers["Vigenere"] = new VigenereCipher();
         }
         private void CipherBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

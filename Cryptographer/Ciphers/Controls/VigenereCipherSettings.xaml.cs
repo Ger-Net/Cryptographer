@@ -6,7 +6,6 @@ namespace Cryptographer.Ciphers.Controls
     public partial class VigenereCipherSettings : UserControl, ICipherSettings
     {
         private string _key;
-        private int _shift;
         public VigenereCipherSettings()
         {
             InitializeComponent();
@@ -14,7 +13,12 @@ namespace Cryptographer.Ciphers.Controls
 
         public ISettignsDTO GetSettigns()
         {
-            return new VigenereSettingsDTO(_key, _shift);
+            return new VigenereSettingsDTO(_key);
+        }
+
+        private void KeyTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _key = KeyTextBox.Text;
         }
     }
 }

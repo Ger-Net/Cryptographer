@@ -1,6 +1,5 @@
 ﻿using Cryptographer.Ciphers.SettingsDTO;
-using System.Windows.Input;
-using static System.Net.Mime.MediaTypeNames;
+using System.Text;
 
 namespace Cryptographer.Ciphers.Ciphers
 {
@@ -12,7 +11,7 @@ namespace Cryptographer.Ciphers.Ciphers
         public override string Decrypt(string source, ISettignsDTO? settigns = null)
         {
             _settings = (VigenereSettingsDTO)settigns;
-            string result = "";
+            StringBuilder stringBuilder = new StringBuilder();
             string key = _settings.Key.ToUpper();
             int keyIndex = 0;
 
@@ -21,23 +20,40 @@ namespace Cryptographer.Ciphers.Ciphers
                 if (char.IsLetter(c))
                 {
                     char offset = char.IsUpper(c) ? 'A' : 'a';
-                    int charCode = ((c - offset) - (key[keyIndex % key.Length] - 'A')) % 26;
-                    result += (char)(charCode + offset);
+                    int charCode = ((c - offset) - (key[keyIndex % key.Length] - 'A') + 26) % 26;
+                    stringBuilder.Append((char)(charCode + offset));
                     keyIndex++;
                 }
                 else
                 {
-                    result += c; // Символы, не являющиеся буквами, остаются без изменений
+                    stringBuilder.Append(c);
                 }
             }
-            return result;
+            return stringBuilder.ToString();
         }
 
         public override string Encrypt(string source, ISettignsDTO? settigns = null)
         {
             _settings = (VigenereSettingsDTO)settigns;
+            StringBuilder stringBuilder = new StringBuilder();
+            string key = _settings.Key.ToUpper();
+            int keyIndex = 0;
 
-            throw new NotImplementedException();
+            foreach (char c in source)
+            {
+                if (char.IsLetter(c))
+                {
+                    char offset = char.IsUpper(c) ? 'A' : 'a';
+                    int charCode = ((c - offset) + (key[keyIndex % key.Length] - 'A')) % 26;
+                    stringBuilder.Append((char)(charCode + offset));
+                    keyIndex++;
+                }
+                else
+                {
+                    stringBuilder.Append(c);
+                }
+            }
+            return stringBuilder.ToString();
         }
     }
 }

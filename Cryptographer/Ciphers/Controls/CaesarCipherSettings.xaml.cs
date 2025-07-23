@@ -18,6 +18,10 @@ namespace Cryptographer.Ciphers.Controls
             {
                 Shift = shift; 
             }
+            else
+            {
+                //TODO Red text
+            }
         }
         public ISettignsDTO GetSettigns()
         {
