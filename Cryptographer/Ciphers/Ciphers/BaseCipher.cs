@@ -6,8 +6,9 @@ namespace Cryptographer.Ciphers.Ciphers
     {
         public abstract string Name { get; }
 
+        public abstract string Encrypt(string source, ISettignsDTO? settigns = null);
         public abstract string Decrypt(string source, ISettignsDTO? settigns = null);
 
-        public abstract string Encrypt(string source, ISettignsDTO? settigns = null);
+        
     }
 }
