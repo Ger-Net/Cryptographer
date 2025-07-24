@@ -31,6 +31,7 @@ namespace Cryptographer
             CipherBox.Items.Add("Vigenere");
             CipherBox.Items.Add("Hex");
             CipherBox.Items.Add("A1Z26");
+            CipherBox.Items.Add("Binary");
         }
         private void InitializeCiphers()
         {
@@ -38,6 +39,7 @@ namespace Cryptographer
             _ciphers["Vigenere"] = new VigenereCipher();
             _ciphers["Hex"] = new HexCipher();
             _ciphers["A1Z26"] = new A1Z26Cipher();
+            _ciphers["Binary"] = new BinaryCipher();
         }
         private void CipherBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
