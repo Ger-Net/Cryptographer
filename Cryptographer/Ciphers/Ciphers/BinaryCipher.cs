@@ -8,6 +8,9 @@ namespace Cryptographer.Ciphers.Ciphers
         public override string Name => "Binary";
         public override string Encrypt(string source, ISettignsDTO? settigns = null)
         {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
             StringBuilder stringBuilder = new StringBuilder();
             foreach (char c in source)
             {
@@ -28,13 +31,15 @@ namespace Cryptographer.Ciphers.Ciphers
             string[] strings = source.Split(' ');
             foreach (string s in strings)
             {
+                if (string.IsNullOrEmpty(s))
+                    continue;
                 if (s == "-")
                 {
                     stringBuilder.Append(' ');
                     continue;
                 }
-                byte[] bytes = Encoding.UTF8.GetBytes(s);
-                stringBuilder.Append(Encoding.UTF8.GetString(bytes));
+                int charCode = Convert.ToInt32(s, 2);
+                stringBuilder.Append(Convert.ToChar(charCode));
             }
             return stringBuilder.ToString();
         }

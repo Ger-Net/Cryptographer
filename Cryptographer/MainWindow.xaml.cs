@@ -1,5 +1,6 @@
 ﻿using Cryptographer.Ciphers.Ciphers;
 using Cryptographer.Ciphers.Controls;
+using Cryptographer.Ciphers.SettingsDTO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -21,9 +22,9 @@ namespace Cryptographer
         private void InitializeCipherSettings()
         {
             _cipherSettingsControls["Caesar"] = new CaesarCipherSettings();
-            _cipherSettingsControls["Vigenere"] = new VigenereCipherSettings(); 
+            _cipherSettingsControls["Vigenere"] = new VigenereCipherSettings();
 
-            
+
         }
         private void InitializeCipherBox()
         {
@@ -51,13 +52,14 @@ namespace Cryptographer
                 settingsControl = _cipherSettingsControls[selectedChipher];
 
             _selectedChipher = _ciphers[selectedChipher];
+
             StackPanel settingsPanel = FindName("SettingsPanel") as StackPanel;
             if (settingsPanel == null)
             {
                 settingsPanel = new StackPanel() { Name = "SettingsPanel", Orientation = Orientation.Vertical };
             }
             settingsPanel.Children.Clear();
-            if(settingsControl != null)
+            if (settingsControl != null)
                 settingsPanel.Children.Add((UserControl)settingsControl);
         }
 
@@ -65,28 +67,22 @@ namespace Cryptographer
         {
             if (_selectedChipher == null)
                 return;
-            if (!_cipherSettingsControls.ContainsKey(_selectedChipher.Name))
-            {
-                switch (ModeBox.SelectedItem)
-                {
-                    case "Encrypt":
-                        ResultTextBox.Text = _selectedChipher.Encrypt(SourceTextBox.Text);
-                        break;
-                    case "Decrypt":
-                        ResultTextBox.Text = _selectedChipher.Decrypt(SourceTextBox.Text);
-                        break;
-                }
+
+            var settings = _cipherSettingsControls.ContainsKey(_selectedChipher.Name) ?
+                           _cipherSettingsControls[_selectedChipher.Name].GetSettigns() :
+                           null;
+
+            Func<string, ISettignsDTO?, string> operation = null;
+
+            if (ModeBox.SelectedItem as string == "Encrypt")
+                operation = _selectedChipher.Encrypt;
+            else if (ModeBox.SelectedItem as string == "Decrypt")
+                operation = _selectedChipher.Decrypt;
+            else
                 return;
-            }
-            switch (ModeBox.SelectedItem)
-            {
-                case "Encrypt":
-                    ResultTextBox.Text = _selectedChipher.Encrypt(SourceTextBox.Text,_cipherSettingsControls[_selectedChipher.Name].GetSettigns());
-                    break;
-                case "Decrypt":
-                    ResultTextBox.Text = _selectedChipher.Decrypt(SourceTextBox.Text, _cipherSettingsControls[_selectedChipher.Name].GetSettigns());
-                    break;
-            }
+
+
+            ResultTextBox.Text = operation(SourceTextBox.Text, settings); 
         }
     }
 }

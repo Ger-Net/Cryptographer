@@ -13,6 +13,9 @@ namespace Cryptographer.Ciphers.Ciphers
 
         public override string Encrypt(string source, ISettignsDTO? settigns = null)
         {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
             StringBuilder stringBuilder = new StringBuilder();
             foreach(char c in source)
             {
@@ -32,6 +35,9 @@ namespace Cryptographer.Ciphers.Ciphers
 
         public override string Decrypt(string source, ISettignsDTO? settigns = null)
         {
+            if (string.IsNullOrEmpty(source))
+                return source;
+
             StringBuilder stringBuilder = new StringBuilder();
             string[] strings = source.Split(' ');
             foreach(string s in strings)
