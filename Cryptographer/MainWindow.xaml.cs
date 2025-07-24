@@ -30,12 +30,14 @@ namespace Cryptographer
             CipherBox.Items.Add("Caesar");
             CipherBox.Items.Add("Vigenere");
             CipherBox.Items.Add("Hex");
+            CipherBox.Items.Add("A1Z26");
         }
         private void InitializeCiphers()
         {
             _ciphers["Caesar"] = new CaesarChipher();
             _ciphers["Vigenere"] = new VigenereCipher();
             _ciphers["Hex"] = new HexCipher();
+            _ciphers["A1Z26"] = new A1Z26Cipher();
         }
         private void CipherBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

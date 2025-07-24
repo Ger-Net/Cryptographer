@@ -6,6 +6,7 @@ namespace Cryptographer.Ciphers.Ciphers
     public class CaesarChipher : BaseCipher
     {
         public override string Name => "Caesar";
+
         public override string Encrypt(string source, ISettignsDTO? settigns)
         {
             StringBuilder stringBuilder = new StringBuilder();

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Cryptographer" xmlns:sys="clr-namespace:System;assembly=netstandard"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Cryptographer" Height="450" Width="800">
     <Grid>
         <ComboBox x:Name="ModeBox" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="148" Height="27" SelectedIndex="0">
             <sys:String>Encrypt</sys:String>
