@@ -1,17 +1,21 @@
 ﻿using Cryptographer.Ciphers.Ciphers;
 using Cryptographer.Ciphers.Controls;
 using Cryptographer.Ciphers.SettingsDTO;
+using Microsoft.Win32;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
 namespace Cryptographer
 {
+    
     public partial class MainWindow : Window
     {
         private Dictionary<string, ICipherSettings> _cipherSettingsControls = new();
         private Dictionary<string, BaseCipher> _ciphers = new();
 
         private BaseCipher _selectedChipher;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -83,6 +87,19 @@ namespace Cryptographer
 
 
             ResultTextBox.Text = operation(SourceTextBox.Text, settings); 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
+            openFileDialog.Title = "Выберите текстовый файл";
+
+            if (openFileDialog.ShowDialog() == true)
+                using (StreamReader reader = new StreamReader(openFileDialog.FileName))
+                    SourceTextBox.Text = reader.ReadToEnd();
+            else
+                return;
         }
     }
 }
